@@ -12,6 +12,8 @@
 		D27185A21F02C1D40057222D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27185A01F02C1D40057222D /* Main.storyboard */; };
 		D27185A41F02C1D40057222D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27185A31F02C1D40057222D /* Assets.xcassets */; };
 		D27185A71F02C1D40057222D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27185A51F02C1D40057222D /* LaunchScreen.storyboard */; };
+		D2CA95ED1F040D9E00D811F4 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CA95EC1F040D9E00D811F4 /* Line.swift */; };
+		D2CA95EF1F0410AF00D811F4 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CA95EE1F0410AF00D811F4 /* DrawView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		D27185A31F02C1D40057222D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D27185A61F02C1D40057222D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D27185A81F02C1D40057222D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2CA95EC1F040D9E00D811F4 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Line.swift; path = ../Line.swift; sourceTree = "<group>"; };
+		D2CA95EE1F0410AF00D811F4 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 		D271859B1F02C1D40057222D /* TouchTracker */ = {
 			isa = PBXGroup;
 			children = (
+				D2CA95EE1F0410AF00D811F4 /* DrawView.swift */,
+				D2CA95EC1F040D9E00D811F4 /* Line.swift */,
 				D271859C1F02C1D40057222D /* AppDelegate.swift */,
 				D271859E1F02C1D40057222D /* ViewController.swift */,
 				D27185A01F02C1D40057222D /* Main.storyboard */,
@@ -96,6 +102,7 @@
 				TargetAttributes = {
 					D27185981F02C1D40057222D = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 4RBF63Q383;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -136,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2CA95ED1F040D9E00D811F4 /* Line.swift in Sources */,
 				D271859F1F02C1D40057222D /* ViewController.swift in Sources */,
+				D2CA95EF1F0410AF00D811F4 /* DrawView.swift in Sources */,
 				D271859D1F02C1D40057222D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,9 +271,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4RBF63Q383;
 				INFOPLIST_FILE = TouchTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.TouchTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amado.TouchTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -274,9 +284,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4RBF63Q383;
 				INFOPLIST_FILE = TouchTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.TouchTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amado.TouchTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -301,6 +312,7 @@
 				D27185AD1F02C1D40057222D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
