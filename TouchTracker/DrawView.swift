@@ -3,6 +3,7 @@ import UIKit
 class DrawView : UIView {
     var currentLines = [NSValue:Line]()
     var finishedLines = [Line]()
+    var selectedLineIndex: Int?
     
     @IBInspectable var finishedLineColor: UIColor = UIColor.black {
         didSet {
@@ -27,12 +28,28 @@ class DrawView : UIView {
         
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
         doubleTapRecognizer.numberOfTapsRequired = 2
+        doubleTapRecognizer.delaysTouchesBegan = true
         addGestureRecognizer(doubleTapRecognizer)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tapRecognizer.delaysTouchesBegan = true
+        tapRecognizer.require(toFail: doubleTapRecognizer)
+        addGestureRecognizer(tapRecognizer)
     }
 
+    func tap(gestureRecognizer: UIGestureRecognizer) {
+        print("Recognized a tap")
+        
+        let point = gestureRecognizer.location(in: self)
+        selectedLineIndex = indexOfLineAtPoint(point: point)
+        
+        setNeedsDisplay()
+    }
+    
     func doubleTap(gestureRecognizer: UIGestureRecognizer) {
         print("Recognized a double tap")
         
+        selectedLineIndex = nil
         currentLines.removeAll(keepingCapacity: false)
         finishedLines.removeAll(keepingCapacity: false)
         setNeedsDisplay()
@@ -48,6 +65,28 @@ class DrawView : UIView {
         path.stroke()
     }
     
+    func indexOfLineAtPoint(point: CGPoint) -> Int? {
+        // Find a line close to point
+        for (index, line) in finishedLines.enumerated() {
+            let begin = line.begin
+            let end = line.end
+            
+            // Check a few points on the line
+            for t in stride(from: 0.0, to: 1.0, by: 0.05) {
+                let x = begin.x + (end.x - begin.x) * CGFloat(t)
+                let y = begin.y + (end.y - begin.y) * CGFloat(t)
+                
+                // If the tapped point is within 20 points, let's return this line
+                if hypot(x - point.x, y - point.y) < 20.0 {
+                    return index
+                }
+            }
+        }
+        
+        // If nothing is close enough to the tapped point, then we did not select a line
+        return nil
+    }
+    
     override func draw(_ rect: CGRect) {
         finishedLineColor.setStroke()
         for line in finishedLines {
@@ -57,6 +96,12 @@ class DrawView : UIView {
         currentLineColor.setStroke()
         for (_,line) in currentLines {
             strokeLine(line: line)
+        }
+        
+        if let index = selectedLineIndex {
+            UIColor.green.setStroke()
+            let selectedLine = finishedLines[index]
+            strokeLine(line: selectedLine)
         }
     }
     
