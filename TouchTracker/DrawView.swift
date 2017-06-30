@@ -1,9 +1,18 @@
 import UIKit
 
 class DrawView : UIView {
+    override var canBecomeFirstResponder: Bool { return true }
+
     var currentLines = [NSValue:Line]()
     var finishedLines = [Line]()
-    var selectedLineIndex: Int?
+    var selectedLineIndex: Int? {
+        didSet {
+            if selectedLineIndex == nil {
+                let menu = UIMenuController.shared
+                menu.setMenuVisible(false, animated: true)
+            }
+        }
+    }
     
     @IBInspectable var finishedLineColor: UIColor = UIColor.black {
         didSet {
@@ -42,10 +51,41 @@ class DrawView : UIView {
         
         let point = gestureRecognizer.location(in: self)
         selectedLineIndex = indexOfLineAtPoint(point: point)
+
+        // Grab the menu controller
+        let menu = UIMenuController.shared
+
+        if selectedLineIndex != nil {
+            // Make DrawView the target of menu item action messages
+            becomeFirstResponder()
+
+            
+            // Create a new "Delete" UIMenuItem
+            let deleteItem = UIMenuItem(title: "Delete", action: #selector(deleteLine))
+            menu.menuItems = [deleteItem]
+            
+            // Tell the menu where it should come from and show it
+            menu.setTargetRect(CGRect(x: point.x, y: point.y, width: 2, height: 2), in: self)
+            menu.setMenuVisible(true, animated: true)
+        } else {
+            // Hide the menu if no line is selected
+            menu.setMenuVisible(false, animated: true)
+        }
         
         setNeedsDisplay()
     }
     
+    func deleteLine(sender: AnyObject) {
+        // Remove the selected line from the list of finishedLines
+        if let index = selectedLineIndex {
+            finishedLines.remove(at: index)
+            selectedLineIndex = nil
+            
+            // Redraw everything
+            setNeedsDisplay()
+        }
+    }
+
     func doubleTap(gestureRecognizer: UIGestureRecognizer) {
         print("Recognized a double tap")
         
