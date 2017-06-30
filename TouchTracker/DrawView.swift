@@ -60,24 +60,26 @@ class DrawView : UIView, UIGestureRecognizerDelegate {
     func moveLine(gestureRecognizer: UIPanGestureRecognizer) {
         print("Recognized a pan")
         
-        // If a line is selected...
-        if let index = selectedLineIndex {
-            // When the pan recognizer changes its position...
-            if gestureRecognizer.state == .changed {
-                // How far has the pan moved?
-                let translation = gestureRecognizer.translation(in: self)
-                
-                // Add the translation to the current beginning and end points of the line
-                // Make sure there are no copy and paste typos!
-                finishedLines[index].begin.x += translation.x
-                finishedLines[index].begin.y += translation.y
-                finishedLines[index].end.x += translation.x
-                finishedLines[index].end.y += translation.y
-                
-                gestureRecognizer.setTranslation(CGPoint.zero, in: self)
-                
-                // Redraw the screen
-                setNeedsDisplay()
+        if gestureRecognizer.state == .began {
+            // If a line is selected...
+            if let index = selectedLineIndex {
+                // When the pan recognizer changes its position...
+                if gestureRecognizer.state == .changed {
+                    // How far has the pan moved?
+                    let translation = gestureRecognizer.translation(in: self)
+                    
+                    // Add the translation to the current beginning and end points of the line
+                    // Make sure there are no copy and paste typos!
+                    finishedLines[index].begin.x += translation.x
+                    finishedLines[index].begin.y += translation.y
+                    finishedLines[index].end.x += translation.x
+                    finishedLines[index].end.y += translation.y
+                    
+                    gestureRecognizer.setTranslation(CGPoint.zero, in: self)
+                    
+                    // Redraw the screen
+                    setNeedsDisplay()
+                }
             }
         } else {
             // If no line is selected, do not do anything
